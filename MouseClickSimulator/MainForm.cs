@@ -143,5 +143,15 @@ namespace MouseClickSimulator
                 mouseYControl.Value = Cursor.Position.Y;
             }
         }
+
+        private void testServerButton_Click(object sender, EventArgs e)
+        {
+            var client = new NTPClient(Data.TimeServer);
+            client.Connect(false);
+            var serverTime = client.OriginateTimestamp;
+            var now = DateTime.Now;
+            string message = $"Server: {serverTime.ToString("dd-MM-yyyy HH:mm.ss.fff")} \n Local: {now.ToString("dd-MM-yyyy HH:mm.ss.fff")}";
+            MessageBox.Show(message);
+        }
     }
 }
