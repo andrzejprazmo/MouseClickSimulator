@@ -15,6 +15,8 @@ namespace MouseClickSimulator
     {
         public FormData Data { get; set; }
         public MouseClickProcessor Processor { get; set; } = new MouseClickProcessor();
+
+        private bool setPointerProcessRunning = false;
         public MainForm()
         {
             InitializeComponent();
@@ -27,7 +29,7 @@ namespace MouseClickSimulator
             formDataBindings.DataSource = Data;
         }
 
-        private void setPointerButton_Click(object sender, EventArgs e)
+        private void testPointerButton_Click(object sender, EventArgs e)
         {
             Processor.SetPointer(Data);
         }
@@ -48,28 +50,43 @@ namespace MouseClickSimulator
 
         private void executionWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            int tick = 100;
             var data = e.Argument as FormData;
             data.Running = true;
+            toolStripFinalTimeLabel.Text = "Rozpoczęto odliczanie...";
             NTPClient client;
             try
             {
                 client = new NTPClient(data.TimeServer);
                 client.Connect(false);
-                if (data.ExecutionDateTime > client.ReferenceTimestamp)
+                var executionDateTime = new DateTime(data.ExecutionDateTime.Year
+                    , data.ExecutionDateTime.Month
+                    , data.ExecutionDateTime.Day
+                    , data.ExecutionDateTime.Hour
+                    , data.ExecutionDateTime.Minute
+                    , data.ExecutionDateTime.Second
+                    , data.ExecutionMiliseconds);
+                var originalTimeStamp = client.OriginateTimestamp;
+                if (executionDateTime > originalTimeStamp)
                 {
-                    var timeDiff = data.ExecutionDateTime - client.OriginateTimestamp;
+                    var timeDiff = executionDateTime - originalTimeStamp;
+                    int miliseconds = 0;
                     do
                     {
                         currentTimeLabel.Text = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                        timeDiff = timeDiff.Subtract(new TimeSpan(0, 0, 0, 0, 100));
+                        timeDiff = timeDiff.Subtract(new TimeSpan(0, 0, 0, 0, tick));
                         if (timeDiff.TotalMilliseconds <= 0)
                         {
                             Processor.LeftMouseClick(data);
+                            var finalExecutionDateTime = originalTimeStamp.AddMilliseconds(miliseconds);
+                            toolStripFinalTimeLabel.Text = $"Czas kliknięcia: {finalExecutionDateTime.ToString("dd-MM-yyyy HH:mm:ss.fff")}";
                             break;
                         }
-                        Thread.Sleep(100);
+                        Thread.Sleep(tick);
+                        miliseconds += tick;
                     } while (data.Running);
                     currentTimeLabel.Text = "00:00:00:00";
+
                 }
             }
             catch (Exception)
@@ -93,6 +110,37 @@ namespace MouseClickSimulator
             else
             {
                 Data.Running = false;
+            }
+        }
+
+        private void setPointerButton_Click(object sender, EventArgs e)
+        {
+            setPointerProcessRunning = true;
+            setPointerButton.Enabled = false;
+            setPointerButton.Text = "Naciśnij Esc";
+            mousePositionTimer.Start();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Escape:
+                    setPointerProcessRunning = false;
+                    setPointerButton.Enabled = true;
+                    setPointerButton.Text = "Ustaw wskaźnik";
+                    mousePositionTimer.Stop();
+                    break;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void mousePositionTimer_Tick(object sender, EventArgs e)
+        {
+            if (setPointerProcessRunning)
+            {
+                mouseXControl.Value = Cursor.Position.X;
+                mouseYControl.Value = Cursor.Position.Y;
             }
         }
     }

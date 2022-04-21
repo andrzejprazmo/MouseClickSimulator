@@ -12,6 +12,7 @@ namespace MouseClickSimulator
         public int MouseX { get; set; }
         public int MouseY { get; set; }
         public DateTime ExecutionDateTime { get; set; }
+        public int ExecutionMiliseconds { get; set; }
         public bool Running { get; set; } = false;
     }
 }

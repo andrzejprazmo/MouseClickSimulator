@@ -34,8 +34,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.setPointerButton = new System.Windows.Forms.Button();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.testPointerButton = new System.Windows.Forms.Button();
+            this.mouseYControl = new System.Windows.Forms.NumericUpDown();
+            this.mouseXControl = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -44,12 +45,19 @@
             this.currentTimeLabel = new System.Windows.Forms.Label();
             this.executionWorker = new System.ComponentModel.BackgroundWorker();
             this.startButton = new System.Windows.Forms.Button();
+            this.mousePositionTimer = new System.Windows.Forms.Timer(this.components);
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripFinalTimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.formDataBindings = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mouseYControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mouseXControl)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,8 +93,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.setPointerButton);
-            this.groupBox2.Controls.Add(this.numericUpDown3);
-            this.groupBox2.Controls.Add(this.numericUpDown2);
+            this.groupBox2.Controls.Add(this.testPointerButton);
+            this.groupBox2.Controls.Add(this.mouseYControl);
+            this.groupBox2.Controls.Add(this.mouseXControl);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(12, 75);
@@ -98,44 +107,54 @@
             // 
             // setPointerButton
             // 
-            this.setPointerButton.Location = new System.Drawing.Point(321, 16);
+            this.setPointerButton.Location = new System.Drawing.Point(229, 16);
             this.setPointerButton.Name = "setPointerButton";
-            this.setPointerButton.Size = new System.Drawing.Size(110, 23);
-            this.setPointerButton.TabIndex = 8;
-            this.setPointerButton.Text = "Testuj wskaźnik";
+            this.setPointerButton.Size = new System.Drawing.Size(96, 23);
+            this.setPointerButton.TabIndex = 9;
+            this.setPointerButton.Text = "Ustaw wskaźnik";
             this.setPointerButton.UseVisualStyleBackColor = true;
             this.setPointerButton.Click += new System.EventHandler(this.setPointerButton_Click);
             // 
-            // numericUpDown3
+            // testPointerButton
             // 
-            this.numericUpDown3.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "MouseY", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown3.Location = new System.Drawing.Point(149, 19);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
+            this.testPointerButton.Location = new System.Drawing.Point(331, 16);
+            this.testPointerButton.Name = "testPointerButton";
+            this.testPointerButton.Size = new System.Drawing.Size(96, 23);
+            this.testPointerButton.TabIndex = 8;
+            this.testPointerButton.Text = "Testuj wskaźnik";
+            this.testPointerButton.UseVisualStyleBackColor = true;
+            this.testPointerButton.Click += new System.EventHandler(this.testPointerButton_Click);
+            // 
+            // mouseYControl
+            // 
+            this.mouseYControl.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "MouseY", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.mouseYControl.Location = new System.Drawing.Point(130, 19);
+            this.mouseYControl.Maximum = new decimal(new int[] {
             4000,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(53, 20);
-            this.numericUpDown3.TabIndex = 7;
+            this.mouseYControl.Name = "mouseYControl";
+            this.mouseYControl.Size = new System.Drawing.Size(53, 20);
+            this.mouseYControl.TabIndex = 7;
             // 
-            // numericUpDown2
+            // mouseXControl
             // 
-            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "MouseX", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown2.Location = new System.Drawing.Point(39, 19);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.mouseXControl.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "MouseX", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.mouseXControl.Location = new System.Drawing.Point(39, 19);
+            this.mouseXControl.Maximum = new decimal(new int[] {
             4000,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(53, 20);
-            this.numericUpDown2.TabIndex = 6;
+            this.mouseXControl.Name = "mouseXControl";
+            this.mouseXControl.Size = new System.Drawing.Size(53, 20);
+            this.mouseXControl.TabIndex = 6;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(126, 21);
+            this.label5.Location = new System.Drawing.Point(107, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 13);
             this.label5.TabIndex = 1;
@@ -152,11 +171,13 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.numericUpDown1);
             this.groupBox3.Controls.Add(this.executionDateTimePicker);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Location = new System.Drawing.Point(12, 129);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(255, 74);
+            this.groupBox3.Size = new System.Drawing.Size(315, 74);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Odliczanie";
@@ -168,7 +189,7 @@
             this.executionDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.executionDateTimePicker.Location = new System.Drawing.Point(104, 32);
             this.executionDateTimePicker.Name = "executionDateTimePicker";
-            this.executionDateTimePicker.Size = new System.Drawing.Size(138, 20);
+            this.executionDateTimePicker.Size = new System.Drawing.Size(136, 20);
             this.executionDateTimePicker.TabIndex = 1;
             // 
             // label6
@@ -207,6 +228,53 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
+            // mousePositionTimer
+            // 
+            this.mousePositionTimer.Tick += new System.EventHandler(this.mousePositionTimer_Tick);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "ExecutionMiliseconds", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Location = new System.Drawing.Point(246, 32);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(58, 20);
+            this.numericUpDown1.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(246, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "milisekundy";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripFinalTimeLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 217);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(461, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripFinalTimeLabel
+            // 
+            this.toolStripFinalTimeLabel.Name = "toolStripFinalTimeLabel";
+            this.toolStripFinalTimeLabel.Size = new System.Drawing.Size(0, 17);
+            // 
             // formDataBindings
             // 
             this.formDataBindings.DataSource = typeof(MouseClickSimulator.FormData);
@@ -216,7 +284,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 228);
+            this.ClientSize = new System.Drawing.Size(461, 239);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.currentTimeLabel);
             this.Controls.Add(this.groupBox3);
@@ -228,14 +297,18 @@
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Symulator kliknięcia myszy";
+            this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mouseYControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mouseXControl)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -248,9 +321,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button setPointerButton;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Button testPointerButton;
+        private System.Windows.Forms.NumericUpDown mouseYControl;
+        private System.Windows.Forms.NumericUpDown mouseXControl;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -260,6 +333,12 @@
         private System.Windows.Forms.BindingSource formDataBindings;
         private System.ComponentModel.BackgroundWorker executionWorker;
         private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button setPointerButton;
+        private System.Windows.Forms.Timer mousePositionTimer;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripFinalTimeLabel;
     }
 }
 
