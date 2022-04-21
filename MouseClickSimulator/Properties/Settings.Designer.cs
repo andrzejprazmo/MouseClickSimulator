@@ -58,5 +58,17 @@ namespace MouseClickSimulator.Properties {
                 this["MouseY"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int Tick {
+            get {
+                return ((int)(this["Tick"]));
+            }
+            set {
+                this["Tick"] = value;
+            }
+        }
     }
 }

@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.formDataBindings = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.setPointerButton = new System.Windows.Forms.Button();
@@ -52,14 +51,19 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripFinalTimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.testServerButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.formDataBindings = new System.Windows.Forms.BindingSource(this.components);
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mouseYControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mouseXControl)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -82,11 +86,6 @@
             this.textBox1.Size = new System.Drawing.Size(227, 20);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "ntp.ubuntu.com";
-            // 
-            // formDataBindings
-            // 
-            this.formDataBindings.DataSource = typeof(MouseClickSimulator.FormData);
-            this.formDataBindings.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.formDataBindings_BindingComplete);
             // 
             // label1
             // 
@@ -178,13 +177,16 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.numericUpDown2);
+            this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.numericUpDown1);
             this.groupBox3.Controls.Add(this.executionDateTimePicker);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Location = new System.Drawing.Point(12, 129);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(315, 74);
+            this.groupBox3.Size = new System.Drawing.Size(315, 88);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Odliczanie";
@@ -254,7 +256,7 @@
             // 
             this.startButton.Enabled = false;
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.startButton.Location = new System.Drawing.Point(333, 180);
+            this.startButton.Location = new System.Drawing.Point(333, 194);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(110, 23);
             this.startButton.TabIndex = 4;
@@ -270,7 +272,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripFinalTimeLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 217);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 230);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(461, 22);
             this.statusStrip1.SizingGrip = false;
@@ -292,11 +294,62 @@
             this.testServerButton.UseVisualStyleBackColor = true;
             this.testServerButton.Click += new System.EventHandler(this.testServerButton_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(23, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Dokładność:";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "Tick", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Location = new System.Drawing.Point(104, 58);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(53, 20);
+            this.numericUpDown2.TabIndex = 10;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // formDataBindings
+            // 
+            this.formDataBindings.DataSource = typeof(MouseClickSimulator.FormData);
+            this.formDataBindings.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.formDataBindings_BindingComplete);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(163, 61);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "milisekund";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 239);
+            this.ClientSize = new System.Drawing.Size(461, 252);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.currentTimeLabel);
@@ -312,7 +365,6 @@
             this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mouseYControl)).EndInit();
@@ -322,6 +374,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -352,6 +406,9 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripFinalTimeLabel;
         private System.Windows.Forms.Button testServerButton;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label7;
     }
 }
 

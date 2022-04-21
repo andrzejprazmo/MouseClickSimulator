@@ -25,6 +25,7 @@ namespace MouseClickSimulator
                 TimeServer = Properties.Settings.Default.TimeServer,
                 MouseX = Properties.Settings.Default.MouseX,
                 MouseY = Properties.Settings.Default.MouseY,
+                Tick = Properties.Settings.Default.Tick,
             };
             formDataBindings.DataSource = Data;
         }
@@ -39,6 +40,7 @@ namespace MouseClickSimulator
             Properties.Settings.Default.TimeServer = Data.TimeServer;
             Properties.Settings.Default.MouseX = Data.MouseX;
             Properties.Settings.Default.MouseY = Data.MouseY;
+            Properties.Settings.Default.Tick = Data.Tick;
             Properties.Settings.Default.Save();
             startButton.Enabled = !string.IsNullOrEmpty(Data.TimeServer) && Data.ExecutionDateTime > DateTime.Now;
         }
@@ -50,15 +52,15 @@ namespace MouseClickSimulator
 
         private void executionWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            int tick = 100;
             var data = e.Argument as FormData;
+            int tick = data.Tick;
             data.Running = true;
             toolStripFinalTimeLabel.Text = "Rozpoczęto odliczanie...";
             NTPClient client;
             try
             {
                 client = new NTPClient(data.TimeServer);
-                client.Connect(false);
+                client.Connect(true);
                 var executionDateTime = new DateTime(data.ExecutionDateTime.Year
                     , data.ExecutionDateTime.Month
                     , data.ExecutionDateTime.Day
@@ -69,24 +71,19 @@ namespace MouseClickSimulator
                 var originalTimeStamp = client.OriginateTimestamp;
                 if (executionDateTime > originalTimeStamp)
                 {
-                    var timeDiff = executionDateTime - originalTimeStamp;
-                    int miliseconds = 0;
                     do
                     {
+                        var timeDiff = executionDateTime - DateTime.Now;
                         currentTimeLabel.Text = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                        timeDiff = timeDiff.Subtract(new TimeSpan(0, 0, 0, 0, tick));
                         if (timeDiff.TotalMilliseconds <= 0)
                         {
                             Processor.LeftMouseClick(data);
                             break;
                         }
                         Thread.Sleep(tick);
-                        miliseconds += tick;
                     } while (data.Running);
                     currentTimeLabel.Text = "00:00:00:00";
-                    var finalExecutionDateTime = originalTimeStamp.AddMilliseconds(miliseconds);
-                    toolStripFinalTimeLabel.Text = $"Czas kliknięcia: {finalExecutionDateTime.ToString("dd-MM-yyyy HH:mm:ss.fff")}";
-
+                    toolStripFinalTimeLabel.Text = $"Czas kliknięcia: {DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff")}";
                 }
             }
             catch (Exception)
@@ -98,6 +95,13 @@ namespace MouseClickSimulator
         private void executionWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             startButton.Text = "Start";
+        }
+
+        private DateTime GetCurrentDateTime()
+        {
+            var client = new NTPClient(Data.TimeServer);
+            client.Connect(false);
+            return client.OriginateTimestamp;
         }
 
         private void startButton_Click(object sender, EventArgs e)
