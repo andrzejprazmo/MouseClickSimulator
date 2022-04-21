@@ -78,14 +78,14 @@ namespace MouseClickSimulator
                         if (timeDiff.TotalMilliseconds <= 0)
                         {
                             Processor.LeftMouseClick(data);
-                            var finalExecutionDateTime = originalTimeStamp.AddMilliseconds(miliseconds);
-                            toolStripFinalTimeLabel.Text = $"Czas kliknięcia: {finalExecutionDateTime.ToString("dd-MM-yyyy HH:mm:ss.fff")}";
                             break;
                         }
                         Thread.Sleep(tick);
                         miliseconds += tick;
                     } while (data.Running);
                     currentTimeLabel.Text = "00:00:00:00";
+                    var finalExecutionDateTime = originalTimeStamp.AddMilliseconds(miliseconds);
+                    toolStripFinalTimeLabel.Text = $"Czas kliknięcia: {finalExecutionDateTime.ToString("dd-MM-yyyy HH:mm:ss.fff")}";
 
                 }
             }
