@@ -16,6 +16,8 @@ namespace MouseClickSimulator
         public FormData Data { get; set; }
         public MouseClickProcessor Processor { get; set; } = new MouseClickProcessor();
 
+        private bool formClosePending = false;
+
         private bool setPointerProcessRunning = false;
         public MainForm()
         {
@@ -26,6 +28,7 @@ namespace MouseClickSimulator
                 MouseX = Properties.Settings.Default.MouseX,
                 MouseY = Properties.Settings.Default.MouseY,
                 Tick = Properties.Settings.Default.Tick,
+                MovePointer = true,
             };
             formDataBindings.DataSource = Data;
         }
@@ -36,13 +39,17 @@ namespace MouseClickSimulator
         }
 
         private void formDataBindings_BindingComplete(object sender, BindingCompleteEventArgs e)
-        {
+            {
             Properties.Settings.Default.TimeServer = Data.TimeServer;
             Properties.Settings.Default.MouseX = Data.MouseX;
             Properties.Settings.Default.MouseY = Data.MouseY;
             Properties.Settings.Default.Tick = Data.Tick;
             Properties.Settings.Default.Save();
             startButton.Enabled = !string.IsNullOrEmpty(Data.TimeServer) && Data.ExecutionDateTime > DateTime.Now;
+            mouseXControl.Enabled = Data.MovePointer;
+            mouseYControl.Enabled = Data.MovePointer;
+            setPointerButton.Enabled = Data.MovePointer;
+            testPointerButton.Enabled = Data.MovePointer;
         }
 
         private void synchronizeButton_Click(object sender, EventArgs e)
@@ -68,11 +75,12 @@ namespace MouseClickSimulator
                     , data.ExecutionDateTime.Minute
                     , data.ExecutionDateTime.Second
                     , data.ExecutionMiliseconds);
-                var originalTimeStamp = client.OriginateTimestamp;
+                var originalTimeStamp = client.ReceiveTimestamp;
                 if (executionDateTime > originalTimeStamp)
                 {
                     do
                     {
+                        startButton.Enabled = true;
                         var timeDiff = executionDateTime - DateTime.Now;
                         currentTimeLabel.Text = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                         if (timeDiff.TotalMilliseconds <= 0)
@@ -84,6 +92,7 @@ namespace MouseClickSimulator
                     } while (data.Running);
                     currentTimeLabel.Text = "00:00:00:00";
                     toolStripFinalTimeLabel.Text = $"Czas kliknięcia: {DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff")}";
+                    e.Cancel = true;
                 }
             }
             catch (Exception)
@@ -95,21 +104,19 @@ namespace MouseClickSimulator
         private void executionWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             startButton.Text = "Start";
-        }
-
-        private DateTime GetCurrentDateTime()
-        {
-            var client = new NTPClient(Data.TimeServer);
-            client.Connect(false);
-            return client.OriginateTimestamp;
+            if (formClosePending)
+            {
+                Close();
+            }
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
             if (!Data.Running)
             {
-                executionWorker.RunWorkerAsync(Data);
                 startButton.Text = "Przerwij";
+                startButton.Enabled = false;
+                executionWorker.RunWorkerAsync(Data);
             }
             else
             {
@@ -152,10 +159,20 @@ namespace MouseClickSimulator
         {
             var client = new NTPClient(Data.TimeServer);
             client.Connect(false);
-            var serverTime = client.OriginateTimestamp;
+            var serverTime = client.ReceiveTimestamp;
             var now = DateTime.Now;
             string message = $"Server: {serverTime.ToString("dd-MM-yyyy HH:mm.ss.fff")} \n Local: {now.ToString("dd-MM-yyyy HH:mm.ss.fff")}";
             MessageBox.Show(message);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (executionWorker.IsBusy)
+            {
+                Data.Running = false;
+                e.Cancel = true;
+                formClosePending = true;
+            }
         }
     }
 }

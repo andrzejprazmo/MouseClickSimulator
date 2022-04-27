@@ -23,7 +23,7 @@ namespace MouseClickSimulator
         }
         public void LeftMouseClick(FormData formData)
         {
-            SetPointer(formData);
+            if(formData.MovePointer) SetPointer(formData);
             mouse_event(MOUSEEVENTF_LEFTDOWN, formData.MouseX, formData.MouseY, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, formData.MouseX, formData.MouseY, 0, 0);
         }

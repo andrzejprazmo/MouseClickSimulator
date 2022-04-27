@@ -14,6 +14,7 @@ namespace MouseClickSimulator
         public DateTime ExecutionDateTime { get; set; }
         public int ExecutionMiliseconds { get; set; }
         public int Tick { get; set; }
+        public bool MovePointer { get; set; }
         public bool Running { get; set; } = false;
     }
 }

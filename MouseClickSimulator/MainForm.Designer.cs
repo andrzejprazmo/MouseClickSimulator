@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.testServerButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -40,6 +41,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.executionDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -50,19 +54,16 @@
             this.mousePositionTimer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripFinalTimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.testServerButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.formDataBindings = new System.Windows.Forms.BindingSource(this.components);
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mouseYControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mouseXControl)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,6 +78,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Synchronizacja czasu";
+            // 
+            // testServerButton
+            // 
+            this.testServerButton.Location = new System.Drawing.Point(331, 19);
+            this.testServerButton.Name = "testServerButton";
+            this.testServerButton.Size = new System.Drawing.Size(96, 23);
+            this.testServerButton.TabIndex = 10;
+            this.testServerButton.Text = "Test serwera";
+            this.testServerButton.UseVisualStyleBackColor = true;
+            this.testServerButton.Click += new System.EventHandler(this.testServerButton_Click);
             // 
             // textBox1
             // 
@@ -98,6 +109,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.setPointerButton);
             this.groupBox2.Controls.Add(this.testPointerButton);
             this.groupBox2.Controls.Add(this.mouseYControl);
@@ -106,14 +118,14 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(12, 75);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(437, 48);
+            this.groupBox2.Size = new System.Drawing.Size(437, 79);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pozycja myszy";
             // 
             // setPointerButton
             // 
-            this.setPointerButton.Location = new System.Drawing.Point(229, 16);
+            this.setPointerButton.Location = new System.Drawing.Point(233, 50);
             this.setPointerButton.Name = "setPointerButton";
             this.setPointerButton.Size = new System.Drawing.Size(96, 23);
             this.setPointerButton.TabIndex = 9;
@@ -123,7 +135,7 @@
             // 
             // testPointerButton
             // 
-            this.testPointerButton.Location = new System.Drawing.Point(331, 16);
+            this.testPointerButton.Location = new System.Drawing.Point(335, 50);
             this.testPointerButton.Name = "testPointerButton";
             this.testPointerButton.Size = new System.Drawing.Size(96, 23);
             this.testPointerButton.TabIndex = 8;
@@ -134,7 +146,7 @@
             // mouseYControl
             // 
             this.mouseYControl.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "MouseY", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.mouseYControl.Location = new System.Drawing.Point(130, 19);
+            this.mouseYControl.Location = new System.Drawing.Point(130, 53);
             this.mouseYControl.Maximum = new decimal(new int[] {
             4000,
             0,
@@ -147,7 +159,7 @@
             // mouseXControl
             // 
             this.mouseXControl.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "MouseX", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.mouseXControl.Location = new System.Drawing.Point(39, 19);
+            this.mouseXControl.Location = new System.Drawing.Point(41, 53);
             this.mouseXControl.Maximum = new decimal(new int[] {
             4000,
             0,
@@ -160,7 +172,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(107, 21);
+            this.label5.Location = new System.Drawing.Point(107, 55);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 13);
             this.label5.TabIndex = 1;
@@ -169,7 +181,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 21);
+            this.label4.Location = new System.Drawing.Point(16, 55);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(17, 13);
             this.label4.TabIndex = 0;
@@ -184,12 +196,58 @@
             this.groupBox3.Controls.Add(this.numericUpDown1);
             this.groupBox3.Controls.Add(this.executionDateTimePicker);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(12, 129);
+            this.groupBox3.Location = new System.Drawing.Point(12, 160);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(315, 88);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Odliczanie";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(163, 61);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "milisekund";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "Tick", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Location = new System.Drawing.Point(104, 58);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(53, 20);
+            this.numericUpDown2.TabIndex = 10;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(23, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Dokładność:";
             // 
             // label2
             // 
@@ -210,7 +268,7 @@
             0});
             this.numericUpDown1.Location = new System.Drawing.Point(246, 32);
             this.numericUpDown1.Maximum = new decimal(new int[] {
-            900,
+            990,
             0,
             0,
             0});
@@ -241,7 +299,7 @@
             // 
             this.currentTimeLabel.AutoSize = true;
             this.currentTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.currentTimeLabel.Location = new System.Drawing.Point(339, 148);
+            this.currentTimeLabel.Location = new System.Drawing.Point(339, 183);
             this.currentTimeLabel.Name = "currentTimeLabel";
             this.currentTimeLabel.Size = new System.Drawing.Size(104, 20);
             this.currentTimeLabel.TabIndex = 3;
@@ -256,7 +314,7 @@
             // 
             this.startButton.Enabled = false;
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.startButton.Location = new System.Drawing.Point(333, 194);
+            this.startButton.Location = new System.Drawing.Point(333, 225);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(110, 23);
             this.startButton.TabIndex = 4;
@@ -272,7 +330,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripFinalTimeLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 230);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 267);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(461, 22);
             this.statusStrip1.SizingGrip = false;
@@ -284,72 +342,27 @@
             this.toolStripFinalTimeLabel.Name = "toolStripFinalTimeLabel";
             this.toolStripFinalTimeLabel.Size = new System.Drawing.Size(0, 17);
             // 
-            // testServerButton
+            // checkBox1
             // 
-            this.testServerButton.Location = new System.Drawing.Point(331, 19);
-            this.testServerButton.Name = "testServerButton";
-            this.testServerButton.Size = new System.Drawing.Size(96, 23);
-            this.testServerButton.TabIndex = 10;
-            this.testServerButton.Text = "Test serwera";
-            this.testServerButton.UseVisualStyleBackColor = true;
-            this.testServerButton.Click += new System.EventHandler(this.testServerButton_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Dokładność:";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "Tick", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown2.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Location = new System.Drawing.Point(104, 58);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            900,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(53, 20);
-            this.numericUpDown2.TabIndex = 10;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.formDataBindings, "MovePointer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox1.Location = new System.Drawing.Point(19, 25);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(142, 17);
+            this.checkBox1.TabIndex = 10;
+            this.checkBox1.Text = "Przesuń wskaźnik myszy";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // formDataBindings
             // 
             this.formDataBindings.DataSource = typeof(MouseClickSimulator.FormData);
             this.formDataBindings.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.formDataBindings_BindingComplete);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(163, 61);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "milisekund";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 252);
+            this.ClientSize = new System.Drawing.Size(461, 289);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.currentTimeLabel);
@@ -363,6 +376,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Symulator kliknięcia myszy";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -371,10 +385,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.mouseXControl)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -409,6 +423,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
