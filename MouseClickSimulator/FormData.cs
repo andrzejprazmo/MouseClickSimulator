@@ -16,5 +16,6 @@ namespace MouseClickSimulator
         public int Tick { get; set; }
         public bool MovePointer { get; set; }
         public bool Running { get; set; } = false;
+
     }
 }

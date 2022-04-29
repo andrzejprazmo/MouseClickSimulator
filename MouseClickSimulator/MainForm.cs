@@ -104,6 +104,7 @@ namespace MouseClickSimulator
         private void executionWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             startButton.Text = "Start";
+            EnableControls(true);
             if (formClosePending)
             {
                 Close();
@@ -116,6 +117,7 @@ namespace MouseClickSimulator
             {
                 startButton.Text = "Przerwij";
                 startButton.Enabled = false;
+                EnableControls(false);
                 executionWorker.RunWorkerAsync(Data);
             }
             else
@@ -173,6 +175,20 @@ namespace MouseClickSimulator
                 e.Cancel = true;
                 formClosePending = true;
             }
+        }
+
+        private void EnableControls(bool enabled = true)
+        {
+            ntpServerTextBox.Enabled = enabled;
+            testServerButton.Enabled = enabled;
+            lockMouseMoveCheckbox.Enabled = enabled;
+            mouseXControl.Enabled = enabled;
+            mouseYControl.Enabled = enabled;
+            setPointerButton.Enabled = enabled;
+            testPointerButton.Enabled= enabled;
+            executionDateTimePicker.Enabled = enabled;
+            executionMilisecondsControl.Enabled = enabled;
+            precisionControl.Enabled = enabled;
         }
     }
 }

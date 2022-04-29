@@ -31,9 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.testServerButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ntpServerTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lockMouseMoveCheckbox = new System.Windows.Forms.CheckBox();
             this.setPointerButton = new System.Windows.Forms.Button();
             this.testPointerButton = new System.Windows.Forms.Button();
             this.mouseYControl = new System.Windows.Forms.NumericUpDown();
@@ -42,10 +43,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.precisionControl = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.executionMilisecondsControl = new System.Windows.Forms.NumericUpDown();
             this.executionDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.currentTimeLabel = new System.Windows.Forms.Label();
@@ -54,15 +55,14 @@
             this.mousePositionTimer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripFinalTimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.formDataBindings = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mouseYControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mouseXControl)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.precisionControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.executionMilisecondsControl)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).BeginInit();
             this.SuspendLayout();
@@ -70,7 +70,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.testServerButton);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.ntpServerTextBox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -89,14 +89,14 @@
             this.testServerButton.UseVisualStyleBackColor = true;
             this.testServerButton.Click += new System.EventHandler(this.testServerButton_Click);
             // 
-            // textBox1
+            // ntpServerTextBox
             // 
-            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.formDataBindings, "TimeServer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox1.Location = new System.Drawing.Point(98, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(227, 20);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "ntp.ubuntu.com";
+            this.ntpServerTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.formDataBindings, "TimeServer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ntpServerTextBox.Location = new System.Drawing.Point(98, 20);
+            this.ntpServerTextBox.Name = "ntpServerTextBox";
+            this.ntpServerTextBox.Size = new System.Drawing.Size(227, 20);
+            this.ntpServerTextBox.TabIndex = 1;
+            this.ntpServerTextBox.Text = "ntp.ubuntu.com";
             // 
             // label1
             // 
@@ -109,7 +109,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Controls.Add(this.lockMouseMoveCheckbox);
             this.groupBox2.Controls.Add(this.setPointerButton);
             this.groupBox2.Controls.Add(this.testPointerButton);
             this.groupBox2.Controls.Add(this.mouseYControl);
@@ -122,6 +122,17 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pozycja myszy";
+            // 
+            // lockMouseMoveCheckbox
+            // 
+            this.lockMouseMoveCheckbox.AutoSize = true;
+            this.lockMouseMoveCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.formDataBindings, "MovePointer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.lockMouseMoveCheckbox.Location = new System.Drawing.Point(19, 25);
+            this.lockMouseMoveCheckbox.Name = "lockMouseMoveCheckbox";
+            this.lockMouseMoveCheckbox.Size = new System.Drawing.Size(142, 17);
+            this.lockMouseMoveCheckbox.TabIndex = 10;
+            this.lockMouseMoveCheckbox.Text = "Przesuń wskaźnik myszy";
+            this.lockMouseMoveCheckbox.UseVisualStyleBackColor = true;
             // 
             // setPointerButton
             // 
@@ -190,10 +201,10 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.numericUpDown2);
+            this.groupBox3.Controls.Add(this.precisionControl);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.numericUpDown1);
+            this.groupBox3.Controls.Add(this.executionMilisecondsControl);
             this.groupBox3.Controls.Add(this.executionDateTimePicker);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Location = new System.Drawing.Point(12, 160);
@@ -212,29 +223,29 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "milisekund";
             // 
-            // numericUpDown2
+            // precisionControl
             // 
-            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "Tick", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown2.Increment = new decimal(new int[] {
+            this.precisionControl.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "Tick", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.precisionControl.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown2.Location = new System.Drawing.Point(104, 58);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            900,
+            this.precisionControl.Location = new System.Drawing.Point(104, 58);
+            this.precisionControl.Maximum = new decimal(new int[] {
+            990,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.precisionControl.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(53, 20);
-            this.numericUpDown2.TabIndex = 10;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.precisionControl.Name = "precisionControl";
+            this.precisionControl.Size = new System.Drawing.Size(53, 20);
+            this.precisionControl.TabIndex = 10;
+            this.precisionControl.Value = new decimal(new int[] {
             10,
             0,
             0,
@@ -258,23 +269,23 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "milisekundy";
             // 
-            // numericUpDown1
+            // executionMilisecondsControl
             // 
-            this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "ExecutionMiliseconds", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown1.Increment = new decimal(new int[] {
+            this.executionMilisecondsControl.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.formDataBindings, "ExecutionMiliseconds", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.executionMilisecondsControl.Increment = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numericUpDown1.Location = new System.Drawing.Point(246, 32);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.executionMilisecondsControl.Location = new System.Drawing.Point(246, 32);
+            this.executionMilisecondsControl.Maximum = new decimal(new int[] {
             990,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(58, 20);
-            this.numericUpDown1.TabIndex = 10;
+            this.executionMilisecondsControl.Name = "executionMilisecondsControl";
+            this.executionMilisecondsControl.Size = new System.Drawing.Size(58, 20);
+            this.executionMilisecondsControl.TabIndex = 10;
             // 
             // executionDateTimePicker
             // 
@@ -342,17 +353,6 @@
             this.toolStripFinalTimeLabel.Name = "toolStripFinalTimeLabel";
             this.toolStripFinalTimeLabel.Size = new System.Drawing.Size(0, 17);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.formDataBindings, "MovePointer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.Location = new System.Drawing.Point(19, 25);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(142, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Przesuń wskaźnik myszy";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // formDataBindings
             // 
             this.formDataBindings.DataSource = typeof(MouseClickSimulator.FormData);
@@ -385,8 +385,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.mouseXControl)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.precisionControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.executionMilisecondsControl)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formDataBindings)).EndInit();
@@ -398,7 +398,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ntpServerTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button testPointerButton;
@@ -416,14 +416,14 @@
         private System.Windows.Forms.Button setPointerButton;
         private System.Windows.Forms.Timer mousePositionTimer;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown executionMilisecondsControl;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripFinalTimeLabel;
         private System.Windows.Forms.Button testServerButton;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown precisionControl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox lockMouseMoveCheckbox;
     }
 }
 
